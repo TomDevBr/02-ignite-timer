@@ -3,7 +3,7 @@ import styled from "styled-components";
 export type ButtonVariant = "primary" | "secondary" | "danger" | "success";
 
 interface ButtonContainerProps {
-  variant?: ButtonVariant;
+  variant: ButtonVariant;
 }
 
 const ButtonVariants = {
@@ -20,5 +20,5 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   margin: 8px;
 
   background-color: ${props => props.theme.primary};
-  color: ${props => props.theme.secondary}
+  color: ${props => props.theme.white}
 `;
