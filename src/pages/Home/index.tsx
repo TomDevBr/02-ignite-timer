@@ -62,18 +62,25 @@ export function Home() {
 
    setCycles( state => ([...state, newCycle]));
    setActiveCycleId(id);
+   setAmountSecondsPassed(0)
    reset();
   }
 
   const activeCycle = cycles.find(cycles => cycles.id === activeCycleId);
+    let interval: number;
     useEffect(()=>{
       if(activeCycle){
-        setInterval(()=>{
+        interval = setInterval(()=>{
           setAmountSecondsPassed(
             differenceInSeconds(new Date(), activeCycle.startDate)
             )
         }, 1000)
+
+        return () => {
+          clearInterval(interval);
+        }
       }
+
     },[activeCycle])
 
 
@@ -87,6 +94,11 @@ export function Home() {
   const minutes = String(minutesAmount).padStart(2, '0');
   const seconds = String(secondsAmount).padStart(2, '0');
 
+  useEffect(() =>{
+      if(activeCycle){
+        document.title = `${minutes}:${seconds}` 
+      }
+  },[seconds, minutes, activeCycle])
   const task = watch('task');
   const isSubmitDisable = !task;
 
